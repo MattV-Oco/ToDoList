@@ -13,7 +13,7 @@ class TaskFixtures extends Fixture
     { 
         $faker = Faker\Factory::create('fr_FR');
 
-        for($ta = 1; $ta <= 10; $ta++){
+        for($ta = 1; $ta <= 20; $ta++){
             $task = new Task();
             $task->setTitle($faker->text(30));
             $task->setDescription($faker->text());
