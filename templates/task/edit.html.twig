@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+	<div class="container-fluid text-center">
+		<h1 class="display-3">Modifier la tâche "{{ task.title }}"</h1>
+	</div>
+	<div class="container-fluid">
+		<div class="row justify-content-center">
+			<div class="col-md-6">
+				{{ form_start(form) }}
+				<div class="mb-3">
+					<label for="{{ form.title.vars.id }}" class="form-label fw-lighter">Titre</label>
+					{{ form_widget(form.title, {'attr': {'class': 'form-control'}}) }}
+					{{ form_errors(form.title) }}
+				</div>
+				<div class="mb-3">
+					<label for="{{ form.description.vars.id }}" class="form-label fw-lighter">Description</label>
+					{{ form_widget(form.description, {'attr': {'class': 'form-control'}}) }}
+					{{ form_errors(form.description) }}
+				</div>
+				<div class="mb-3 text-center">
+					<button type="submit" class="btn btn-success">Sauvegarder les modifications</button>
+				</div>
+				{{ form_end(form) }}
+			</div>
+		</div>
+		<div class="row justify-content-center mt-3">
+			<div class="col-md-6 text-center">
+				<a href="{{ path('task_index') }}" class="btn btn-info">Retour à la liste des tâches</a>
+			</div>
+		</div>
+	</div>
+{% endblock %}

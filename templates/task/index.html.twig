@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+	<div class="container-fluid text-center">
+		<h1 class="display-3">Liste des tâches</h1>
+	</div>
+
+	{% for message in app.flashes('info') %}
+		<div class="container-fluid text-center alert alert-success" style="font-size:30px;">
+			{{ message }}
+		</div>
+	{% endfor %}
+	{% for message in app.flashes('warning') %}
+		<div class="container-fluid text-center alert alert-warning" style="font-size:30px;">
+			{{ message }}
+		</div>
+	{% endfor %}
+	{% for message in app.flashes('danger') %}
+		<div class="container-fluid text-center alert alert-danger" style="font-size:30px;">
+			{{ message }}
+		</div>
+	{% endfor %}
+
+	{% if tasks is empty %}
+		<p>Aucune tâche pour le moment.</p>
+	{% else %}
+		<table class="table table-info table-striped table-hover">
+			<thead>
+				<tr>
+
+					<th scope="col">Tâche</th>
+					<th scope="col"></th>
+					<th scope="col"></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					{% for task in tasks %}
+						<tr>
+							<td title="{{ task.description }}">
+								{{ task.title }}
+							</td>
+							<td>
+								<a href="{{ path('task_edit', {'id': task.id}) }}">
+									<button class='btn btn-info'>Modifier</button>
+								</a>
+							</td>
+							<td>
+								<form action="{{ path('task_delete', {'id': task.id}) }}" method="post" style="display: inline-block;">
+									<input type="hidden" name="_method" value="DELETE">
+									<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ task.id) }}">
+									<button type="submit" class="btn btn-warning">Supprimer</button>
+								</form>
+							</td>
+						</tr>
+					{% endfor %}
+				</tr>
+			</tbody>
+		</table>
+	{% endif %}
+
+	<div class="container-fluid text-center">
+		<a href="{{ path('task_new') }}">
+			<button class='btn btn-success'>Créer une nouvelle tâche</button>
+		</a>
+	</div>
+{% endblock %}
